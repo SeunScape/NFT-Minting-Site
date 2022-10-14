@@ -2,8 +2,8 @@ import { Contract, providers, utils } from "ethers";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import Web3Modal from "web3modal";
-import { abi, NFT_CONTRACT_ADDRESS } from "../constants";
-import styles from "../styles/Home.module.css";
+import { abi, NFT_CONTRACT_ADDRESS } from "../constants/Index";
+
 
 export default function Home() {
   // walletConnected keep track of whether the user's wallet is connected or not
@@ -291,23 +291,23 @@ export default function Home() {
     // If wallet is not connected, return a button which allows them to connect their wllet
     if (!walletConnected) {
       return (
-        <button onClick={connectWallet} className={styles.button}>
+        <div onClick={connectWallet}>
           Connect your wallet
-        </button>
+        </div>
       );
     }
 
     // If we are currently waiting for something, return a loading button
     if (loading) {
-      return <button className={styles.button}>Loading...</button>;
+      return <div><a className="btn btn-primary btn-lg rounded-pill">Loading... </a></div>;
     }
 
     // If connected user is the owner, and presale hasnt started yet, allow them to start the presale
     if (isOwner && !presaleStarted) {
       return (
-        <button className={styles.button} onClick={startPresale}>
-          Start Presale!
-        </button>
+        <div onClick={startPresale}>
+          <a className="btn btn-primary btn-lg rounded-pill">Start Presale!</a>
+        </div>
       );
     }
 
@@ -315,7 +315,7 @@ export default function Home() {
     if (!presaleStarted) {
       return (
         <div>
-          <div className={styles.description}>Presale hasnt started!</div>
+          <div>Presale hasnt started!</div>
         </div>
       );
     }
@@ -324,13 +324,12 @@ export default function Home() {
     if (presaleStarted && !presaleEnded) {
       return (
         <div>
-          <div className={styles.description}>
-            Presale has started!!! If your address is whitelisted, Mint a Crypto
-            Dev 🥳
+          <div>
+            Presale has started!!!
           </div>
-          <button className={styles.button} onClick={presaleMint}>
-            Presale Mint 🚀
-          </button>
+          <div onClick={presaleMint}>
+          <a className="btn btn-primary btn-lg rounded-pill">Presale Mint </a>
+          </div>
         </div>
       );
     }
@@ -338,39 +337,137 @@ export default function Home() {
     // If presale started and has ended, its time for public minting
     if (presaleStarted && presaleEnded) {
       return (
-        <button className={styles.button} onClick={publicMint}>
-          Public Mint 🚀
-        </button>
+        <div onClick={publicMint}>
+        <a className="btn btn-primary btn-lg rounded-pill">Public Mint </a>  
+        </div>
       );
     }
   };
 
   return (
-    <div>
+    // <div>
+    //   <Head>
+    //     <title>Chronicles</title>
+    //     <meta name="description" content="Whitelist-Dapp" />
+    //     <link rel="icon" href="/favicon.ico" />
+    //   </Head>
+    //   <div className={styles.main}>
+    //     <div>
+    //       <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
+    //       <div className={styles.description}>
+    //         Its an NFT collection for developers in Crypto.
+    //       </div>
+    //       <div className={styles.description}>
+    //         {tokenIdsMinted}/20 have been minted
+    //       </div>
+    //       {renderButton()}
+    //     </div>
+    //     <div>
+    //       <img className={styles.image} src="./cryptodevs/0.svg" />
+    //     </div>
+    //   </div>
+
+    //   <footer className={styles.footer}>
+    //     Made with &#10084; by Crypto Devs
+    //   </footer>
+    // </div>
+
+
+    <>
+<div>
       <Head>
-        <title>Crypto Devs</title>
-        <meta name="description" content="Whitelist-Dapp" />
-        <link rel="icon" href="/favicon.ico" />
+       <title>Chronicles</title>
+       <meta name="description" content="Whitelist-Dapp" />
+       <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.main}>
-        <div>
-          <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
-          <div className={styles.description}>
-            Its an NFT collection for developers in Crypto.
+  <div id="content" role="main">
+    <div className="section mt-5 pb-0">
+      <div className="container pt-5">
+        <div className="row g-5"> 
+          {/* Item Image */}
+          <div className="col-lg-6 text-center"> <img className="img-fluid rounded-5" src="images/collections/item-1-big.jpg" alt /> </div>
+          {/* Item Image end */} 
+          {/* Item Details */}
+          <div className="col-lg-6 text-center text-lg-start">
+            <h1 className="text-light text-5 mb-4">Chronicles Genesis</h1>
+            <h2 className="text-10 text-white fw-600 mb-4">The Utility <span className="bg-success rounded-4 px-3">NFT</span></h2>
+            {/* Public Mint end in */}
+            <div className="row gx-3 align-items-center mb-3">
+              <div className="col-12 col-lg-auto text-light"> Mint end in: </div>
+              <div className="col-12 col-lg-auto">
+                <div className="countdown2 d-inline-block text-white text-7 fw-600" data-countdown-end="2022/11/18 12:00:00" />
+              </div>
+            </div>
+            <p className="text-white fw-500 mb-1"><span className="text-light fw-normal">Whitelist:</span> Soldout <span className="d-inline-flex text-success bg-white rounded-circle"><i className="fas fa-check-circle" /></span></p>
+            <p className="text-white fw-500"><span className="text-light fw-normal">Presale:</span> Soldout <span className="d-inline-flex text-success bg-white rounded-circle"><i className="fas fa-check-circle" /></span></p>
+            <p className="border border-secondary border-opacity-50 rounded-pill d-inline-block px-3 text-uppercase text-light">1 MAX Per Wallet</p>
+            {/* Price */}
+            <div className="row justify-content-center justify-content-lg-start mb-4">
+              <div className="col-auto col-lg-4">
+                <p className="text-light mb-0">Price:</p>
+                <div className="text-7 text-white fw-600">0.01 ETH</div>
+              </div>
+              <div className="col-auto col-lg-4">
+                <p className="text-light mb-0">Remaining:</p>
+                <div className="text-7 text-white fw-600">{tokenIdsMinted}/20 </div>
+              </div>
+            </div>
+            {/* Quantity */}
+            <div className="row g-2 align-items-center justify-content-center justify-content-lg-start mb-4">
+              <div className="col-12 col-sm-auto text-light"> Quantity: </div>
+              <div className="col-auto col-sm-4">
+                <div className="input-group form-dark">
+                  <input type="text" data-ride="spinner" id="hotels-rooms" className="form-control text-center bg-trnsparent rounded-4" defaultValue={1} data-min={1} disabled/>
+                </div>
+              </div>
+            </div>
+            {/* Button */}
+            <div className="d-grid"> {renderButton()}</div>
           </div>
-          <div className={styles.description}>
-            {tokenIdsMinted}/20 have been minted
-          </div>
-          {renderButton()}
-        </div>
-        <div>
-          <img className={styles.image} src="./cryptodevs/0.svg" />
         </div>
       </div>
-
-      <footer className={styles.footer}>
-        Made with &#10084; by Crypto Devs
-      </footer>
     </div>
+    {/* Join
+    ============================== */}
+    <section id="join" className="section pb-0">
+      <div className="container"> 
+        {/* Heading */}
+        <div className="position-relative d-flex text-center">
+          <h2 className="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 lh-1 mb-0 mb-n1">don’t miss</h2>
+        </div>
+        {/* Heading end*/}
+        <div className="bg-primary text-center shadow-lg rounded-4 p-5 mt-n3">
+          <div className="text-15 text-white lh-1 mb-2"><i className="fab fa-discord" /></div>
+          <h3 className="text-11 text-white fw-600 mb-3">Join Our Community</h3>
+          <a className="btn btn-light rounded-pill" href="#">Join Discord</a> </div>
+      </div>
+    </section>
+    {/* Join end */} 
+  </div>
+  {/* Content end */} 
+  {/* Footer
+  ============================== */}
+  <footer id="footer" className="section footer-dark my-4">
+    <div className="container"> 
+      {/* Social Icon */}
+      <ul className="social-icons social-icons-dark social-icons-lg justify-content-center mb-4">
+        <li className="social-icons-discord"><a data-bs-toggle="tooltip" href="http://www.discord.com" target="_blank" title="Discord"><i className="fab fa-discord" /></a></li>
+        <li className="social-icons-facebook"><a data-bs-toggle="tooltip" href="http://www.facebook.com" target="_blank" title="Facebook"><i className="fab fa-facebook-f" /></a></li>
+        <li className="social-icons-twitter"><a data-bs-toggle="tooltip" href="https://twitter.com" target="_blank" title="Twitter"><i className="fab fa-twitter" /></a></li>
+        <li className="social-icons-instagram"><a data-bs-toggle="tooltip" href="http://www.dribbble.com" target="_blank" title="Instagram"><i className="fab fa-instagram" /></a></li>
+        <li className="social-icons-telegram"><a data-bs-toggle="tooltip" href="http://www.telegram.com" target="_blank" title="Telegram"><i className="fab fa-telegram-plane" /></a></li>
+      </ul>
+      {/* Copyright Text */}
+      <p className="text-center mb-4">Copyright © 2022 <a href="#" className="fw-500">Scott</a>. All Rights Reserved.</p>
+      {/* Other Links */}
+      <ul className="nav nav-sm justify-content-center">
+        <li className="nav-item"> <a className="nav-link" data-bs-toggle="modal" data-bs-target="#security" href="#">Security</a></li>
+        <li className="nav-item"> <a className="nav-link" data-bs-toggle="modal" data-bs-target="#terms" href="#">Terms</a></li>
+        <li className="nav-item"> <a className="nav-link" data-bs-toggle="modal" data-bs-target="#privacy" href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+    </>
   );
 }
